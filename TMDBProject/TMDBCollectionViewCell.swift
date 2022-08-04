@@ -11,11 +11,11 @@ class TMDBCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "TMDBCollectionViewCell"
     
-    @IBOutlet weak var movieReleaseDateLabel: UILabel!
-    @IBOutlet weak var movieGenreLabel: UILabel!
-    @IBOutlet weak var moviePosterImageView: UIImageView!
     
-    @IBOutlet weak var movieRateLabel: UILabel!
+    @IBOutlet weak var totalView: UIView!
+    
+    @IBOutlet weak var moviePosterImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
-    @IBOutlet weak var movieCastLabel: UILabel!
+    
+    
 }
