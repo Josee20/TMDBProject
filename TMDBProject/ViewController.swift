@@ -55,7 +55,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         let url = "\(EndPoint.TMDBURL)/movie/week?api_key=\(APIKey.TMDBkey)&page=\(currentPage)"
         
-        AF.request(url, method: .get).validate(statusCode: 200...400).responseJSON { response in
+        AF.request(url, method: .get).validate(statusCode: 200...400).responseData { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -70,6 +70,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                         let releaseDate = movie["release_date"].stringValue
                         let genre = movie["genre_ids"].arrayValue.map { $0.intValue }
                         let poster = movie["poster_path"].stringValue
+                        let backgroundPoster = movie["backdrop_path"].stringValue
                         let title = movie["title"].stringValue
                         
                         let format = DateFormatter()
@@ -79,6 +80,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                         let newDate = format.string(from: date!)
                         
                         let posterImageURL = URL(string: EndPoint.imageURL + "\(poster)")!
+                        let backgroundImageURL = URL(string: EndPoint.imageURL + "\(backgroundPoster)")!
                         
                         var genreStrArray: [String] = []
                         
@@ -86,7 +88,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                             genreStrArray.append(self.genreIDDic[genre]!)
                         }
                         
-                        let movieInfo = MovieInfo(movieReleaseDate: newDate, movieGenre: genreStrArray, moviePoster: posterImageURL, movieTitle: title)
+                        let movieInfo = MovieInfo(movieReleaseDate: newDate, movieGenre: genreStrArray, moviePoster: posterImageURL, movieBackgroundPoster: backgroundImageURL, movieTitle: title)
                         self.movieInfoList.append(movieInfo)
                     }
                     
@@ -141,10 +143,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return movieInfoList.count
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let sb = UIStoryboard(name: "MovieDetailsStoryboard", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: "MovieDetailsViewController") as! MovieDetailsViewController
+        
+        vc.movieDetailsMovieTitle = movieInfoList[indexPath.row].movieTitle
+        vc.movieDetailPoster = movieInfoList[indexPath.row].moviePoster
+        vc.movieDetailsBackgroundPoster = movieInfoList[indexPath.row].movieBackgroundPoster
+        
+//        ( X )
+//        vc.movieTitleLabel?.text = movieInfoList[indexPath.row].movieTitle
+//        vc.movieBackgroundPosterImageView?.kf.setImage(with: movieInfoList[indexPath.row].moviePoster)
+//        vc.movieSmallPosterImageView?.kf.setImage(with: movieInfoList[indexPath.row].moviePoster)
 
         self.navigationController?.pushViewController(vc, animated: true)
     }
