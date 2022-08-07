@@ -159,10 +159,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
     @IBAction func linkButtonClicked(_ sender: Any) {
         let sb = UIStoryboard(name: "MovieWebViewStoryboard", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: "MovieWebViewController") as! MovieWebViewController
         
+//        vc.movieWebViewID = movieInfoList[index]
         vc.modalPresentationStyle = .automatic
         self.present(vc, animated: true)
         

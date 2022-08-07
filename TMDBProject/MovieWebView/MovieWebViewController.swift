@@ -13,17 +13,41 @@ import SwiftyJSON
 
 class MovieWebViewController: UIViewController {
 
+    var movieWebViewID = 766507
+    
+    var videoKey = ""
+    let youtubeURL = "https://www.youtube.com/watch?v="
+
     @IBOutlet weak var webPage: WKWebView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    var startingURL = "https://www.naver.com"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         searchBar.delegate = self
         
-        openWebPage(url: startingURL)
+        requestData()
+        openWebPage(url: "\(youtubeURL)\(videoKey)")
+    }
+    
+
+    func requestData() {
+        let url = EndPoint.videoURL + "\(movieWebViewID)/videos?api_key=\(APIKey.TMDBkey)"
+        
+        AF.request(url, method: .get).validate().responseData { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+//                print("JSON: \(json)")
+                
+                let key = json["results"][0]["key"].stringValue
+                self.videoKey = key
+                print(self.videoKey)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func openWebPage(url: String) {
@@ -35,6 +59,7 @@ class MovieWebViewController: UIViewController {
         
         let request = URLRequest(url: url)
         webPage.load(request)
+        print(url)
     }
     
     @IBAction func cancelButtonClicked(_ sender: Any) {
@@ -52,8 +77,6 @@ class MovieWebViewController: UIViewController {
     @IBAction func goForwardButtonClicked(_ sender: Any) {
         webPage.goForward()
     }
-    
-    
 }
 
 extension MovieWebViewController: UISearchBarDelegate {
