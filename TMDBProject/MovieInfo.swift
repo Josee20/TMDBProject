@@ -13,6 +13,17 @@ struct MovieInfo {
     let moviePoster: URL
     let movieBackgroundPoster: URL
     let movieTitle: String
-//    let movieCast: String
-//    let movieRate: Double
+    let movieID: Int
+}
+
+struct MovieCastInfo {
+    let castPoster: URL
+    let castName: String
+    let castRole: String
+}
+
+struct MovieCastInfo2 {
+    let castPoster: [URL]
+    let castName: [String]
+    let castRole: [String]
 }

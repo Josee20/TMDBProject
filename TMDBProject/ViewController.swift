@@ -59,11 +59,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                print("JSON: \(json)")
+//                print("JSON: \(json)")
                 
                 let statusCode = response.response?.statusCode ?? 400
                 self.totalPages = json["total_pages"].intValue
-                
 
                 if statusCode == 200 {
                     for movie in json["results"].arrayValue {
@@ -72,6 +71,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                         let poster = movie["poster_path"].stringValue
                         let backgroundPoster = movie["backdrop_path"].stringValue
                         let title = movie["title"].stringValue
+                        let ID = movie["id"].intValue
                         
                         let format = DateFormatter()
                         format.dateFormat = "yyyy-MM-dd"
@@ -88,7 +88,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                             genreStrArray.append(self.genreIDDic[genre]!)
                         }
                         
-                        let movieInfo = MovieInfo(movieReleaseDate: newDate, movieGenre: genreStrArray, moviePoster: posterImageURL, movieBackgroundPoster: backgroundImageURL, movieTitle: title)
+                        let movieInfo = MovieInfo(movieReleaseDate: newDate, movieGenre: genreStrArray, moviePoster: posterImageURL, movieBackgroundPoster: backgroundImageURL, movieTitle: title, movieID: ID)
                         self.movieInfoList.append(movieInfo)
                     }
                     
@@ -150,6 +150,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         vc.movieDetailsMovieTitle = movieInfoList[indexPath.row].movieTitle
         vc.movieDetailPoster = movieInfoList[indexPath.row].moviePoster
         vc.movieDetailsBackgroundPoster = movieInfoList[indexPath.row].movieBackgroundPoster
+        vc.movieID = movieInfoList[indexPath.row].movieID
         
 //        ( X )
 //        vc.movieTitleLabel?.text = movieInfoList[indexPath.row].movieTitle

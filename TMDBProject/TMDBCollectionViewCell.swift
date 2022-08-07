@@ -10,8 +10,7 @@ import UIKit
 class TMDBCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "TMDBCollectionViewCell"
-    
-    
+
     @IBOutlet weak var totalView: UIView!
     
     @IBOutlet weak var movieReleaseDateLabel: UILabel!

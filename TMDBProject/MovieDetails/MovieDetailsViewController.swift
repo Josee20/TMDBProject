@@ -13,10 +13,10 @@ import SwiftyJSON
 
 class MovieDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var tempArr1 = ["a", "b", "c", "d", "e"]
-    var tempArr2 = ["가", "나", "다", "라", "마"]
-//    var tempArr3 = ["kingfisher-9.jpg", "kingfisher-1.jpg", "kingfisher-2.jpg", "kingfisher-3.jpg", "kingfisher-4.jpg"]
+    var castInfoList: [MovieCastInfo] = []
+//    var castInfoList2: [MovieCastInfo2] = []
     
+    var movieID = 0
     var movieDetailsMovieTitle = ""
     var movieDetailPoster: URL?
     var movieDetailsBackgroundPoster: URL?
@@ -47,22 +47,69 @@ class MovieDetailsViewController: UIViewController, UITableViewDelegate, UITable
         
         let castCellNib = UINib(nibName: "CastTableViewCell", bundle: nil)
         castInfoTableView.register(castCellNib, forCellReuseIdentifier: "CastTableViewCell")
+        
+        requestCastData()
     }
     
+    func requestCastData() {
+        
+        let url = "\(EndPoint.castURL)\(movieID)/credits?api_key=\(APIKey.TMDBkey)"
+        
+        AF.request(url, method: .get).validate(statusCode: 200...500).responseData { response in
+            switch response.result {
     
+            case .success(let value):
+                let json = JSON(value)
+//                print("JSON: \(json)")
+                
+                let statusCode = response.response?.statusCode ?? 400
+                
+                if statusCode == 200 {
+                    for cast in json["cast"].arrayValue {
+                        let castPoster = cast["profile_path"].stringValue
+
+                        guard let castPosterURL = URL(string: EndPoint.imageURL + castPoster) else {
+                            return
+                        }
+
+                        let castName = cast["name"].stringValue
+                        let castRole = cast["character"].stringValue
+
+                        let movieCastInfo = MovieCastInfo(castPoster: castPosterURL, castName: castName, castRole: castRole)
+                        self.castInfoList.append(movieCastInfo)
+                    }
+
+//                    map 함수는 어떻게 쓸까??
+//                    let example1 = json["cast"].arrayValue.map { $0["name"].stringValue }
+//                    let example2 = json["cast"].arrayValue.map { $0["character"].stringValue }
+//                    let example3 = json["cast"].arrayValue.map { URL(string: EndPoint.imageURL + $0["profile_path"].stringValue)! }
+//
+//                    let movieCastInfo2 = MovieCastInfo2(castPoster: example3, castName: example1, castRole: example2)
+//                    self.castInfoList2.append(movieCastInfo2)
+//                    print(self.castInfoList2)
+                } else {
+                    print("에러가 발생했습니다")
+                }
+                
+                self.castInfoTableView.reloadData()
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let castCell = tableView.dequeueReusableCell(withIdentifier: "CastTableViewCell", for: indexPath) as? CastTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CastTableViewCell", for: indexPath) as? CastTableViewCell else {
             return UITableViewCell()
         }
-        
-        
-//        cell.castImageView.image = UIImage(named: tempArr3[indexPath.row])
-        castCell.castNameLabel.text = tempArr1[indexPath.row]
-        castCell.castRoleLabel.text = tempArr2[indexPath.row]
 
-        return castCell
+        cell.castImageView.kf.setImage(with: castInfoList[indexPath.row].castPoster)
+        cell.castNameLabel.text = castInfoList[indexPath.row].castName
+        cell.castRoleLabel.text = castInfoList[indexPath.row].castRole
+
+        return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -74,7 +121,7 @@ class MovieDetailsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return castInfoList.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -82,6 +129,4 @@ class MovieDetailsViewController: UIViewController, UITableViewDelegate, UITable
     }
 }
 
-//@IBOutlet weak var castImageView: UIImageView!
-//@IBOutlet weak var castNameLabel: UILabel!
-//@IBOutlet weak var castRoleLabel: UILabel!
+
