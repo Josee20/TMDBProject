@@ -14,6 +14,7 @@ struct MovieInfo {
     let movieBackgroundPoster: URL
     let movieTitle: String
     let movieID: Int
+    let movieOverview: String
 }
 
 struct MovieCastInfo {
@@ -22,9 +23,5 @@ struct MovieCastInfo {
     let castRole: String
 }
 
-struct MovieCastInfo2 {
-    let castPoster: [URL]
-    let castName: [String]
-    let castRole: [String]
-}
+
 

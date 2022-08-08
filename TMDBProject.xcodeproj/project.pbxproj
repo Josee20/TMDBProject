@@ -69,6 +69,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49563DCE28A1638E00343EBD /* TMDBAPIManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TMDBAPIManager;
+			sourceTree = "<group>";
+		};
 		49AE5D93289F9F5E00AB4429 /* MovieWebView */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				49E809D1289A802900AF9700 /* Key */,
+				49563DCE28A1638E00343EBD /* TMDBAPIManager */,
 				49E809BB289A7F3600AF9700 /* AppDelegate.swift */,
 				49E809BD289A7F3600AF9700 /* SceneDelegate.swift */,
 				49E809C1289A7F3600AF9700 /* Main.storyboard */,

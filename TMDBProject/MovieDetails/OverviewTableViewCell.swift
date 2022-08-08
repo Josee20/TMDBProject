@@ -9,6 +9,8 @@ import UIKit
 
 class OverviewTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet weak var moreInfoButton: UIButton!
     
     
 }

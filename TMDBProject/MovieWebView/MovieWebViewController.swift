@@ -27,7 +27,11 @@ class MovieWebViewController: UIViewController {
         searchBar.delegate = self
         
         requestData()
-        openWebPage(url: "\(youtubeURL)\(videoKey)")
+        
+        print(movieWebViewID)
+        
+        
+        
     }
     
 
@@ -42,12 +46,18 @@ class MovieWebViewController: UIViewController {
                 
                 let key = json["results"][0]["key"].stringValue
                 self.videoKey = key
-                print(self.videoKey)
+                
+                self.openWebPage(url: "\(self.youtubeURL)\(self.videoKey)")
+                self.searchBar.text = "\(self.youtubeURL)\(self.videoKey)"
+                
+                
                 
             case .failure(let error):
                 print(error)
             }
+//            self.openWebPage(url: "\(self.youtubeURL)\(self.videoKey)")
         }
+//        self.openWebPage(url: "\(self.youtubeURL)\(self.videoKey)")
     }
     
     func openWebPage(url: String) {

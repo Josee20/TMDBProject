@@ -14,39 +14,36 @@ import SwiftyJSON
 class MovieDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var castInfoList: [MovieCastInfo] = []
-//    var castInfoList2: [MovieCastInfo2] = []
     
     var movieID = 0
     var movieDetailsMovieTitle = ""
     var movieDetailPoster: URL?
     var movieDetailsBackgroundPoster: URL?
+    var movieOverview = ""
+    var isExpanded = false
 
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var movieBackgroundPosterImageView: UIImageView!
     @IBOutlet weak var movieSmallPosterImageView: UIImageView!
-    @IBOutlet weak var overviewInfoTableView: UITableView!
-    @IBOutlet weak var castInfoTableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationItem.title = "출연/제작"
         
-//        다중 셀은 어떻게???...
-//        self.overviewInfoTableView.delegate = self
-//        self.overviewInfoTableView.dataSource = self
-        self.castInfoTableView.delegate = self
-        self.castInfoTableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
         movieTitleLabel.text = movieDetailsMovieTitle
         movieSmallPosterImageView.kf.setImage(with: movieDetailPoster)
         movieBackgroundPosterImageView .kf.setImage(with: movieDetailsBackgroundPoster)
         
-//        let overviewCellNib = UINib(nibName: "OverviewTableViewCell", bundle: nil)
-//        overviewInfoTableView.register(overviewCellNib, forCellReuseIdentifier: "OverviewTableViewCell")
+        let overviewCellNib = UINib(nibName: "OverviewTableViewCell", bundle: nil)
+        tableView.register(overviewCellNib, forCellReuseIdentifier: "OverviewTableViewCell")
         
         let castCellNib = UINib(nibName: "CastTableViewCell", bundle: nil)
-        castInfoTableView.register(castCellNib, forCellReuseIdentifier: "CastTableViewCell")
+        tableView.register(castCellNib, forCellReuseIdentifier: "CastTableViewCell")
         
         requestCastData()
     }
@@ -60,7 +57,7 @@ class MovieDetailsViewController: UIViewController, UITableViewDelegate, UITable
     
             case .success(let value):
                 let json = JSON(value)
-                print("JSON: \(json)")
+//                print("JSON: \(json)")
                 
                 let statusCode = response.response?.statusCode ?? 400
                 
@@ -79,19 +76,11 @@ class MovieDetailsViewController: UIViewController, UITableViewDelegate, UITable
                         self.castInfoList.append(movieCastInfo)
                     }
 
-//                    map 함수는 어떻게 쓸까??
-//                    let example1 = json["cast"].arrayValue.map { $0["name"].stringValue }
-//                    let example2 = json["cast"].arrayValue.map { $0["character"].stringValue }
-//                    let example3 = json["cast"].arrayValue.map { URL(string: EndPoint.imageURL + $0["profile_path"].stringValue)! }
-//
-//                    let movieCastInfo2 = MovieCastInfo2(castPoster: example3, castName: example1, castRole: example2)
-//                    self.castInfoList2.append(movieCastInfo2)
-//                    print(self.castInfoList2)
                 } else {
                     print("에러가 발생했습니다")
                 }
                 
-                self.castInfoTableView.reloadData()
+                self.tableView.reloadData()
                 
             case .failure(let error):
                 print(error)
@@ -101,19 +90,34 @@ class MovieDetailsViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CastTableViewCell", for: indexPath) as? CastTableViewCell else {
-            return UITableViewCell()
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "OverviewTableViewCell", for: indexPath) as? OverviewTableViewCell else { return UITableViewCell() }
+            
+            cell.overviewLabel.text = movieOverview
+            
+            if isExpanded == false {
+                cell.overviewLabel.numberOfLines = 2
+            } else {
+                cell.overviewLabel.numberOfLines = 0
+            }
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CastTableViewCell", for: indexPath) as? CastTableViewCell else { return UITableViewCell() }
+            
+            cell.castImageView.kf.setImage(with: castInfoList[indexPath.row].castPoster)
+            cell.castNameLabel.text = castInfoList[indexPath.row].castName
+            cell.castRoleLabel.text = castInfoList[indexPath.row].castRole
+            
+            return cell
         }
-
-        cell.castImageView.kf.setImage(with: castInfoList[indexPath.row].castPoster)
-        cell.castNameLabel.text = castInfoList[indexPath.row].castName
-        cell.castRoleLabel.text = castInfoList[indexPath.row].castRole
-
-        return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Cast"
+        if section == 0 {
+            return "Overview"
+        } else {
+            return "Cast"
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -121,11 +125,30 @@ class MovieDetailsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return castInfoList.count
+        if section == 0 {
+            return 1
+        } else {
+            return castInfoList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0
+        if indexPath.section == 0 {
+            return UITableView.automaticDimension
+        } else {
+            return 80.0
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            isExpanded = !isExpanded
+            tableView.reloadData()
+        }
     }
 }
 

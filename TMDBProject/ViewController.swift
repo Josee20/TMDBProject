@@ -20,6 +20,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var genreIDDic = [28:"Action", 12:"Adventure", 16:"Animation", 35:"Comedy", 80:"Crime", 99:"Documentary", 18:"Drama", 10751:"Family", 14:"Fantasy", 36:"History", 27:"Horror", 10402:"Music", 9648:"Mystery", 10749:"Romance", 878:"Science Fiction", 10770:"TV Movie", 53:"Thriller", 10752:"War", 37:"Western"]
     
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -59,7 +60,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-//                print("JSON: \(json)")
+                print("JSON: \(json)")
                 
                 let statusCode = response.response?.statusCode ?? 400
                 self.totalPages = json["total_pages"].intValue
@@ -72,6 +73,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                         let backgroundPoster = movie["backdrop_path"].stringValue
                         let title = movie["title"].stringValue
                         let ID = movie["id"].intValue
+                        let overview = movie["overview"].stringValue
                         
                         let format = DateFormatter()
                         format.dateFormat = "yyyy-MM-dd"
@@ -88,7 +90,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                             genreStrArray.append(self.genreIDDic[genre]!)
                         }
                         
-                        let movieInfo = MovieInfo(movieReleaseDate: newDate, movieGenre: genreStrArray, moviePoster: posterImageURL, movieBackgroundPoster: backgroundImageURL, movieTitle: title, movieID: ID)
+                        let movieInfo = MovieInfo(movieReleaseDate: newDate, movieGenre: genreStrArray, moviePoster: posterImageURL, movieBackgroundPoster: backgroundImageURL, movieTitle: title, movieID: ID, movieOverview: overview)
                         self.movieInfoList.append(movieInfo)
                     }
                     
@@ -121,8 +123,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         cell.movieTitleLabel.text = movieInfoList[indexPath.row].movieTitle
         cell.moviePosterImageView.kf.setImage(with: movieInfoList[indexPath.row].moviePoster)
-        
- 
+        cell.linkButton.tag = indexPath.row
+
         // 뷰 그림자
         cell.totalView.layer.masksToBounds = false
         cell.totalView.layer.borderWidth = 0.0
@@ -151,20 +153,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         vc.movieDetailPoster = movieInfoList[indexPath.row].moviePoster
         vc.movieDetailsBackgroundPoster = movieInfoList[indexPath.row].movieBackgroundPoster
         vc.movieID = movieInfoList[indexPath.row].movieID
-        
-//        ( X )
-//        vc.movieTitleLabel?.text = movieInfoList[indexPath.row].movieTitle
-//        vc.movieBackgroundPosterImageView?.kf.setImage(with: movieInfoList[indexPath.row].moviePoster)
-//        vc.movieSmallPosterImageView?.kf.setImage(with: movieInfoList[indexPath.row].moviePoster)
+        vc.movieOverview = movieInfoList[indexPath.row].movieOverview
 
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @IBAction func linkButtonClicked(_ sender: Any) {
+    @IBAction func linkButtonClicked(_ sender: UIButton) {
         let sb = UIStoryboard(name: "MovieWebViewStoryboard", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: "MovieWebViewController") as! MovieWebViewController
         
-//        vc.movieWebViewID = movieInfoList[index]
+        vc.movieWebViewID = movieInfoList[sender.tag].movieID
         vc.modalPresentationStyle = .automatic
         self.present(vc, animated: true)
         

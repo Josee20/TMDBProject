@@ -17,5 +17,6 @@ class TMDBCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var movieGenreLabel: UILabel!
     @IBOutlet weak var moviePosterImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
+    @IBOutlet weak var linkButton: UIButton!
     
 }
