@@ -7,10 +7,10 @@
 
 import UIKit
 
-class CollectionReusableView: UICollectionReusableView {
-    static let identifier = "CollectionReusableView"
-    
-    @IBOutlet weak var movieReleaseDateLabel: UILabel!
-    @IBOutlet weak var movieGenreLabel: UILabel!
-    
-}
+//class CollectionReusableView: UICollectionReusableView {
+//    static let identifier = "CollectionReusableView"
+//    
+//    @IBOutlet weak var movieReleaseDateLabel: UILabel!
+//    @IBOutlet weak var movieGenreLabel: UILabel!
+//    
+//}

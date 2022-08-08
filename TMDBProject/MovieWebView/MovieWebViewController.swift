@@ -13,7 +13,7 @@ import SwiftyJSON
 
 class MovieWebViewController: UIViewController {
 
-    var movieWebViewID = 766507
+    var movieWebViewID = 0
     
     var videoKey = ""
     let youtubeURL = "https://www.youtube.com/watch?v="
@@ -26,38 +26,45 @@ class MovieWebViewController: UIViewController {
 
         searchBar.delegate = self
         
-        requestData()
-        
-        print(movieWebViewID)
-        
-        
+//        requestWebData()
+        showWebPageInfo()
         
     }
     
-
-    func requestData() {
-        let url = EndPoint.videoURL + "\(movieWebViewID)/videos?api_key=\(APIKey.TMDBkey)"
-        
-        AF.request(url, method: .get).validate().responseData { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-//                print("JSON: \(json)")
-                
-                let key = json["results"][0]["key"].stringValue
-                self.videoKey = key
-                
-                self.openWebPage(url: "\(self.youtubeURL)\(self.videoKey)")
-                self.searchBar.text = "\(self.youtubeURL)\(self.videoKey)"
-                
-                
-                
-            case .failure(let error):
-                print(error)
-            }
-//            self.openWebPage(url: "\(self.youtubeURL)\(self.videoKey)")
+//    func requestWebData() {
+////        let url = EndPoint.videoURL + "\(movieWebViewID)/videos?api_key=\(APIKey.TMDBkey)"
+//        let url = EndPoint.castAndVideo.requestURL + "\(movieWebViewID)/videos?api_key=\(APIKey.TMDBkey)"
+//
+//        AF.request(url, method: .get).validate().responseData { response in
+//            switch response.result {
+//            case .success(let value):
+//                let json = JSON(value)
+////                print("JSON: \(json)")
+//
+//                let key = json["results"][0]["key"].stringValue
+//                self.videoKey = key
+//
+//                self.openWebPage(url: "\(self.youtubeURL)\(self.videoKey)")
+//                self.searchBar.text = "\(self.youtubeURL)\(self.videoKey)"
+//
+//
+//
+//            case .failure(let error):
+//                print(error)
+//            }
+////            self.openWebPage(url: "\(self.youtubeURL)\(self.videoKey)")
+//        }
+////        self.openWebPage(url: "\(self.youtubeURL)\(self.videoKey)")
+//    }
+    
+    func showWebPageInfo() {
+        WebAPIManager.shared.requestWebData(type: .castAndVideo, webViewID: movieWebViewID) { json in
+            let key = json["results"][0]["key"].stringValue
+            self.videoKey = key
+            
+            self.openWebPage(url: "\(self.youtubeURL)\(self.videoKey)")
+            self.searchBar.text = "\(self.youtubeURL)\(self.videoKey)"
         }
-//        self.openWebPage(url: "\(self.youtubeURL)\(self.videoKey)")
     }
     
     func openWebPage(url: String) {
