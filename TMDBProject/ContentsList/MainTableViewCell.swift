@@ -14,8 +14,6 @@ class MainTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionTableView: UICollectionView!
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -34,12 +32,10 @@ class MainTableViewCell: UITableViewCell {
     
     func collectionTableViewLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 130_)
+        layout.itemSize = CGSize(width: 200, height: 260)
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
         return layout
     }
-    
-
 }

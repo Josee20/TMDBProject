@@ -11,6 +11,7 @@ extension URL {
     static let TrendingURL = "https://api.themoviedb.org/3/trending/"
     static let imageURL = "https://image.tmdb.org/t/p/original/"
     static let castAndVideoURL = "https://api.themoviedb.org/3/movie/"
+    static let movieRecommendURL = "https://api.themoviedb.org/3/movie/"
     
     static func makeTrendingEndPointString(_ endpoint: String) -> String {
         return TrendingURL + endpoint
