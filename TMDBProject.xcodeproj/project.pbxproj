@@ -13,6 +13,8 @@
 		49728280289ECB150034F1E0 /* CastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4972827E289ECB150034F1E0 /* CastTableViewCell.xib */; };
 		49728283289ED5680034F1E0 /* OverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49728281289ED5680034F1E0 /* OverviewTableViewCell.swift */; };
 		49728284289ED5680034F1E0 /* OverviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49728282289ED5680034F1E0 /* OverviewTableViewCell.xib */; };
+		4982C33628A4D63900272520 /* MapStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4982C33528A4D63900272520 /* MapStoryboard.storyboard */; };
+		4982C33828A4D65100272520 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982C33728A4D65100272520 /* MapViewController.swift */; };
 		49A096D528A254300037EE01 /* ContentsListStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49A096D428A254300037EE01 /* ContentsListStoryboard.storyboard */; };
 		49A096D728A254AC0037EE01 /* ContentsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A096D628A254AC0037EE01 /* ContentsListViewController.swift */; };
 		49A096D928A254BC0037EE01 /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49A096D828A254BC0037EE01 /* CardView.xib */; };
@@ -46,6 +48,8 @@
 		4972827E289ECB150034F1E0 /* CastTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CastTableViewCell.xib; sourceTree = "<group>"; };
 		49728281289ED5680034F1E0 /* OverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableViewCell.swift; sourceTree = "<group>"; };
 		49728282289ED5680034F1E0 /* OverviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewTableViewCell.xib; sourceTree = "<group>"; };
+		4982C33528A4D63900272520 /* MapStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapStoryboard.storyboard; sourceTree = "<group>"; };
+		4982C33728A4D65100272520 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		49A096D428A254300037EE01 /* ContentsListStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ContentsListStoryboard.storyboard; sourceTree = "<group>"; };
 		49A096D628A254AC0037EE01 /* ContentsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsListViewController.swift; sourceTree = "<group>"; };
 		49A096D828A254BC0037EE01 /* CardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
@@ -91,6 +95,15 @@
 				49563DD128A1641000343EBD /* TMDBAPIManager.swift */,
 			);
 			path = TMDBAPIManager;
+			sourceTree = "<group>";
+		};
+		4982C33428A4D5F400272520 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				4982C33528A4D63900272520 /* MapStoryboard.storyboard */,
+				4982C33728A4D65100272520 /* MapViewController.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		49A096D328A253B10037EE01 /* ContentsList */ = {
@@ -147,6 +160,7 @@
 				49F2D493289C34F6003CB838 /* MovieDetails */,
 				49AE5D93289F9F5E00AB4429 /* MovieWebView */,
 				49A096D328A253B10037EE01 /* ContentsList */,
+				4982C33428A4D5F400272520 /* Map */,
 				49E809C4289A7F3800AF9700 /* Assets.xcassets */,
 				49E809C6289A7F3800AF9700 /* LaunchScreen.storyboard */,
 				49E809C9289A7F3800AF9700 /* Info.plist */,
@@ -250,6 +264,7 @@
 				49A096D528A254300037EE01 /* ContentsListStoryboard.storyboard in Resources */,
 				49728280289ECB150034F1E0 /* CastTableViewCell.xib in Resources */,
 				49A096E328A2648F0037EE01 /* CardCollectionViewCell.xib in Resources */,
+				4982C33628A4D63900272520 /* MapStoryboard.storyboard in Resources */,
 				49E809C8289A7F3800AF9700 /* LaunchScreen.storyboard in Resources */,
 				49728284289ED5680034F1E0 /* OverviewTableViewCell.xib in Resources */,
 				49E809C5289A7F3800AF9700 /* Assets.xcassets in Resources */,
@@ -281,6 +296,7 @@
 				4972827F289ECB150034F1E0 /* CastTableViewCell.swift in Sources */,
 				49A096E228A2648F0037EE01 /* CardCollectionViewCell.swift in Sources */,
 				49563DD428A16B1600343EBD /* URL + Extension.swift in Sources */,
+				4982C33828A4D65100272520 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,9 +446,10 @@
 				DEVELOPMENT_TEAM = AW5HC5SGGG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TMDBProject/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 현재 위치 기반으로 주변의 영화관 정보를 보여주려면 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = ContentsListStoryboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = MapStoryboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -444,7 +461,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -458,9 +475,10 @@
 				DEVELOPMENT_TEAM = AW5HC5SGGG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TMDBProject/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 현재 위치 기반으로 주변의 영화관 정보를 보여주려면 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = ContentsListStoryboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = MapStoryboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -472,7 +490,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
