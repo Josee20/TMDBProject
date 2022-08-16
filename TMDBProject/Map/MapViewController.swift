@@ -9,6 +9,8 @@ import UIKit
 import MapKit
 import CoreLocation
 
+import TMDBCustomFramework
+
 
 struct Theater {
     let type: String
@@ -28,7 +30,7 @@ struct TheaterList {
     ]
 }
 
-class MapViewController: UIViewController {
+public class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -36,7 +38,7 @@ class MapViewController: UIViewController {
     
     var theaterList = TheaterList()
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         locationManager.delegate = self
@@ -51,10 +53,10 @@ class MapViewController: UIViewController {
     
     @objc func showTheaterList() {
         let showTheaterAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
+
         let showMegaBox = UIAlertAction(title: "메가박스", style: .default) { showMegaBox in
             self.mapView.removeAnnotations(self.mapView.annotations)
-            
+
             for i in 2...3 {
                 let positionMegaBox = CLLocationCoordinate2D(latitude: self.theaterList.mapAnnotations[i].latitude, longitude: self.theaterList.mapAnnotations[i].longitude)
                 self.setRegionAndAnnotation(center: positionMegaBox, theaterName: self.theaterList.mapAnnotations[i].location)
@@ -62,7 +64,7 @@ class MapViewController: UIViewController {
         }
         let showLotteCinemma = UIAlertAction(title: "롯데시네마", style: .default) { showLotteCinemma in
             self.mapView.removeAnnotations(self.mapView.annotations)
-            
+
             for i in 0...1 {
                 let positionLotteCinemma = CLLocationCoordinate2D(latitude: self.theaterList.mapAnnotations[i].latitude, longitude: self.theaterList.mapAnnotations[i].longitude)
                 self.setRegionAndAnnotation(center: positionLotteCinemma, theaterName: self.theaterList.mapAnnotations[i].location)
@@ -70,7 +72,7 @@ class MapViewController: UIViewController {
         }
         let showCGV = UIAlertAction(title: "CGV", style: .default) { showCGV in
             self.mapView.removeAnnotations(self.mapView.annotations)
-            
+
             for i in 4...5 {
                 let positionCGV = CLLocationCoordinate2D(latitude: self.theaterList.mapAnnotations[i].latitude, longitude: self.theaterList.mapAnnotations[i].longitude)
                 self.setRegionAndAnnotation(center: positionCGV, theaterName: self.theaterList.mapAnnotations[i].location)
@@ -78,22 +80,24 @@ class MapViewController: UIViewController {
         }
         let showAll = UIAlertAction(title: "전체보기", style: .default) { showAll in
             self.mapView.removeAnnotations(self.mapView.annotations)
-            
+
             for i in 0..<self.theaterList.mapAnnotations.count {
                 let positionAll = CLLocationCoordinate2D(latitude: self.theaterList.mapAnnotations[i].latitude, longitude: self.theaterList.mapAnnotations[i].longitude)
                 self.setRegionAndAnnotation(center: positionAll, theaterName: self.theaterList.mapAnnotations[i].location)
             }
         }
-        
+
         let cancel = UIAlertAction(title: "취소", style: .cancel)
-        
+
         showTheaterAlert.addAction(showMegaBox)
         showTheaterAlert.addAction(showLotteCinemma)
         showTheaterAlert.addAction(showCGV)
         showTheaterAlert.addAction(showAll)
         showTheaterAlert.addAction(cancel)
-        
+
         present(showTheaterAlert, animated: true, completion: nil)
+        
+//        showTheaters()
     }
     
     func setRegionAndAnnotation(center: CLLocationCoordinate2D, theaterName: String) {
@@ -163,7 +167,7 @@ extension MapViewController {
 
 extension MapViewController: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print(#function, locations, "위치를 성공적으로 가져왔습니다.")
         print(locations.last?.coordinate)
         
@@ -175,11 +179,11 @@ extension MapViewController: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(#function, "위치를 가져오는데 실패했습니다.")
     }
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         print(#function, "권한변화")
         checkUserDeviceLocationServiceAuthorization()
     }

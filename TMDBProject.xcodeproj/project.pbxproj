@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		490646A728ABB57B00A543DD /* TMDBCustomFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 490646A228ABB33300A543DD /* TMDBCustomFramework.framework */; };
+		490646A828ABB57C00A543DD /* TMDBCustomFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 490646A228ABB33300A543DD /* TMDBCustomFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		49563DD228A1641000343EBD /* TMDBAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49563DD128A1641000343EBD /* TMDBAPIManager.swift */; };
 		49563DD428A16B1600343EBD /* URL + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49563DD328A16B1600343EBD /* URL + Extension.swift */; };
 		4972827F289ECB150034F1E0 /* CastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4972827D289ECB150034F1E0 /* CastTableViewCell.swift */; };
@@ -41,7 +43,39 @@
 		49F2D48F289C34C3003CB838 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F2D48D289C34C3003CB838 /* MovieDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		490646A128ABB33300A543DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4906469C28ABB33300A543DD /* TMDBCustomFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4906461F28ABA11500A543DD;
+			remoteInfo = TMDBCustomFramework;
+		};
+		490646A328ABB33300A543DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4906469C28ABB33300A543DD /* TMDBCustomFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4906462928ABA11500A543DD;
+			remoteInfo = TMDBCustomFrameworkTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		490646A928ABB57C00A543DD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				490646A828ABB57C00A543DD /* TMDBCustomFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		4906469C28ABB33300A543DD /* TMDBCustomFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TMDBCustomFramework.xcodeproj; path = "../../8월 3주차 프로젝트/TMDBCustomFramework/TMDBCustomFramework.xcodeproj"; sourceTree = "<group>"; };
 		49563DD128A1641000343EBD /* TMDBAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBAPIManager.swift; sourceTree = "<group>"; };
 		49563DD328A16B1600343EBD /* URL + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL + Extension.swift"; sourceTree = "<group>"; };
 		4972827D289ECB150034F1E0 /* CastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastTableViewCell.swift; sourceTree = "<group>"; };
@@ -81,6 +115,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E809E7289AD11800AF9700 /* Alamofire in Frameworks */,
+				490646A728ABB57B00A543DD /* TMDBCustomFramework.framework in Frameworks */,
 				49E809E4289AD0EB00AF9700 /* Kingfisher in Frameworks */,
 				49E809DE289AD0A800AF9700 /* SwiftyJSON in Frameworks */,
 			);
@@ -89,6 +124,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4906469D28ABB33300A543DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				490646A228ABB33300A543DD /* TMDBCustomFramework.framework */,
+				490646A428ABB33300A543DD /* TMDBCustomFrameworkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		490646A628ABB57B00A543DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		49563DCE28A1638E00343EBD /* TMDBAPIManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,9 +183,11 @@
 		49E809AF289A7F3600AF9700 = {
 			isa = PBXGroup;
 			children = (
+				4906469C28ABB33300A543DD /* TMDBCustomFramework.xcodeproj */,
 				49E809CF289A7F5C00AF9700 /* .gitignore */,
 				49E809BA289A7F3600AF9700 /* TMDBProject */,
 				49E809B9289A7F3600AF9700 /* Products */,
+				490646A628ABB57B00A543DD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -200,6 +253,7 @@
 				49E809B4289A7F3600AF9700 /* Sources */,
 				49E809B5289A7F3600AF9700 /* Frameworks */,
 				49E809B6289A7F3600AF9700 /* Resources */,
+				490646A928ABB57C00A543DD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -246,12 +300,35 @@
 			);
 			productRefGroup = 49E809B9289A7F3600AF9700 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4906469D28ABB33300A543DD /* Products */;
+					ProjectRef = 4906469C28ABB33300A543DD /* TMDBCustomFramework.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				49E809B7289A7F3600AF9700 /* TMDBProject */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		490646A228ABB33300A543DD /* TMDBCustomFramework.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TMDBCustomFramework.framework;
+			remoteRef = 490646A128ABB33300A543DD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		490646A428ABB33300A543DD /* TMDBCustomFrameworkTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = TMDBCustomFrameworkTests.xctest;
+			remoteRef = 490646A328ABB33300A543DD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		49E809B6289A7F3600AF9700 /* Resources */ = {
@@ -449,7 +526,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\"위치정보를 받으시려면 권한요청을 수정으로 바꿔주시기 바랍니다\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = ContentsListStoryboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = MapStoryboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -478,7 +555,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\"위치정보를 받으시려면 권한요청을 수정으로 바꿔주시기 바랍니다\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = ContentsListStoryboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = MapStoryboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
