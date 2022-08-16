@@ -38,7 +38,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 //        fetchData()
     }
     
-    func setLayout() {
+    fileprivate func setLayout() {
         
         let layout = UICollectionViewFlowLayout()
         let space: CGFloat = 10
@@ -52,60 +52,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         collectionView.collectionViewLayout = layout
     }
-    
-//    func fetchData() {
-//
-////        let url = "\(EndPoint.TMDBURL)/movie/week?api_key=\(APIKey.TMDBkey)&page=\(currentPage)"
-//        let url = "\(EndPoint.trending.requestURL)\(APIKey.TMDBkey)&page=\(currentPage)"
-//
-//        AF.request(url, method: .get).validate(statusCode: 200...400).responseData { response in
-//            switch response.result {
-//            case .success(let value):
-//                let json = JSON(value)
-//                print("JSON: \(json)")
-//
-//                let statusCode = response.response?.statusCode ?? 400
-//                self.totalPages = json["total_pages"].intValue
-//
-//                if statusCode == 200 {
-//                    for movie in json["results"].arrayValue {
-//                        let releaseDate = movie["release_date"].stringValue
-//                        let genre = movie["genre_ids"].arrayValue.map { $0.intValue }
-//                        let poster = movie["poster_path"].stringValue
-//                        let backgroundPoster = movie["backdrop_path"].stringValue
-//                        let title = movie["title"].stringValue
-//                        let ID = movie["id"].intValue
-//                        let overview = movie["overview"].stringValue
-//
-//                        let format = DateFormatter()
-//                        format.dateFormat = "yyyy-MM-dd"
-//                        let date = format.date(from: releaseDate)
-//                        format.dateFormat = "MM/dd/yyyy"
-//                        let newDate = format.string(from: date!)
-//
-//                        let posterImageURL = URL(string: EndPoint.image.requestURL + "\(poster)")!
-//                        let backgroundImageURL = URL(string: EndPoint.image.requestURL + "\(backgroundPoster)")!
-//
-//                        var genreStrArray: [String] = []
-//
-//                        for genre in genre {
-//                            genreStrArray.append(self.genreIDDic[genre]!)
-//                        }
-//
-//                        let movieInfo = MovieInfo(movieReleaseDate: newDate, movieGenre: genreStrArray, moviePoster: posterImageURL, movieBackgroundPoster: backgroundImageURL, movieTitle: title, movieID: ID, movieOverview: overview)
-//                        self.movieInfoList.append(movieInfo)
-//                    }
-//                } else {
-//                    print("에러가 발생했습니다.")
-//                }
-//
-//                self.collectionView.reloadData()
-//
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
     
     func showMovieInfo() {
         MovieAPIManager.shared.requestMovieData(type: .trending, page: currentPage) { json in

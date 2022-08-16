@@ -49,47 +49,6 @@ class MovieDetailsViewController: UIViewController, UITableViewDelegate, UITable
         showCastAndOverviewInfo()
     }
     
-//    func requestCastData() {
-//
-////        let url = "\(EndPoint.castURL)\(movieID)/credits?api_key=\(APIKey.TMDBkey)"
-//        let url = "\(EndPoint.castAndVideo.requestURL)\(movieID)/credits?api_key=\(APIKey.TMDBkey)"
-//
-//        AF.request(url, method: .get).validate(statusCode: 200...500).responseData { response in
-//            switch response.result {
-//
-//            case .success(let value):
-//                let json = JSON(value)
-////                print("JSON: \(json)")
-//
-//                let statusCode = response.response?.statusCode ?? 400
-//
-//                if statusCode == 200 {
-//                    for cast in json["cast"].arrayValue {
-//                        let castPoster = cast["profile_path"].stringValue
-//
-//                        guard let castPosterURL = URL(string: EndPoint.image.requestURL + castPoster) else {
-//                            return
-//                        }
-//
-//                        let castName = cast["name"].stringValue
-//                        let castRole = cast["character"].stringValue
-//
-//                        let movieCastInfo = MovieCastInfo(castPoster: castPosterURL, castName: castName, castRole: castRole)
-//                        self.castInfoList.append(movieCastInfo)
-//                    }
-//
-//                } else {
-//                    print("에러가 발생했습니다")
-//                }
-//
-//                self.tableView.reloadData()
-//
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-    
     func showCastAndOverviewInfo() {
         CastAPIManager.shared.requestCastData(type: .castAndVideo, ID: movieID) { json in
             for cast in json["cast"].arrayValue {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CardView: UIView {
+public class CardView: UIView {
 
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var starButton: UIButton!

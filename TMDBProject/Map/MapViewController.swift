@@ -165,6 +165,8 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print(#function, locations, "위치를 성공적으로 가져왔습니다.")
+        print(locations.last?.coordinate)
+        
         
         if let coordinate = locations.last?.coordinate {
             setRegionAndAnnotation(center: coordinate, theaterName: "내 위치")
